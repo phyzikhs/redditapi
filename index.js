@@ -1,5 +1,5 @@
 
-const express = require('express')()
+const express = require('express')
 const app = express()
 
 app.use(express.json())
@@ -34,6 +34,7 @@ app.listen(
 )
 
 // Reddit posts routes
+// feed
 app.get('/', (req, res) => {
     res.status(200).send([
         {
@@ -57,8 +58,8 @@ app.get('/', (req, res) => {
     ])
 })
 
+// ge reddit by id
 app.get('/reddits/:id', (req, res) => {
-    console.log(id)
     res.status(200).send({
         'id': '101',
         'title': 'python has for loops',
@@ -70,6 +71,7 @@ app.get('/reddits/:id', (req, res) => {
     })
 })
 
+// comment on a reddit
 app.post('/reddits/:id', (req, res) => {
     const {comment} = {
         comment:req.body.comment,
@@ -92,6 +94,7 @@ app.post('/reddits/:id', (req, res) => {
     res.status(415).send({'message': 'Password does not match'})
 })
 
+// create a reddit post
 app.post('/reddits/', (req, res) => {
     const reddit = {
         ...req.body,
@@ -103,6 +106,7 @@ app.post('/reddits/', (req, res) => {
     res.send(reddit)
 })
 
+
 app.patch('/reddits/:id/comment', (req, res) => {
     res.send({
         ...req.body,
@@ -110,6 +114,7 @@ app.patch('/reddits/:id/comment', (req, res) => {
     })
 })
 
+// upvote reddit
 app.patch('/reddits/:id/upvote', (req, res) => {
     res.send({
         ...req.body,
@@ -117,6 +122,7 @@ app.patch('/reddits/:id/upvote', (req, res) => {
     })
 })
 
+// delete reddit
 app.delete('/reddits/:id', (req, res) => {
     res.send({
         'id': 'delete reddit',
