@@ -7,7 +7,11 @@ case class Post(id: Long,
                 comments: List[Comment],
                 likes: List[String],
                 dislikes: List[String]) {
-  def like(username: String): Unit = likes += username
+  def like(username: String): List[String] =
+    if (likes.contains(username)) likes :+ username
+    else likes
 
-  def dislike(username: String): Unit = dislikes += username
+  def dislike(username: String): List[String] =
+    if (dislikes.contains(username)) dislikes :+ username
+    else dislikes
 }
